@@ -1,0 +1,156 @@
+﻿@model Banner
+@{
+    ViewData["Title"] = "Banner";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+}
+
+<style>
+    .about-card {
+        max-width: 700px;
+        margin: 0 auto;
+        border: none;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+
+        .about-card .card-header {
+            background: linear-gradient(135deg, #1f1f1f 0%, #3a3a3a 100%);
+            border: none;
+            padding: 1.1rem 1.5rem;
+        }
+
+            .about-card .card-header h5 {
+                color: #fff;
+                margin: 0;
+                font-weight: 600;
+                letter-spacing: 0.3px;
+            }
+
+        .about-card .card-body {
+            padding: 2rem;
+            background: #fff;
+        }
+
+    .about-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        background: #f2f2f2;
+    }
+
+    .about-title {
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: #1f1f1f;
+        margin-bottom: 0.6rem;
+    }
+
+    .about-desc {
+        font-size: 0.95rem;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .about-actions {
+        display: flex;
+        gap: 10px;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 1.2rem;
+    }
+
+    .icon-btn {
+        flex: 1;
+        border-radius: 10px;
+        border: 1.5px solid #e4e4e4;
+        background: #fff;
+        color: #444;
+        font-size: 0.9rem;
+        padding: 0.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        text-decoration: none;
+        transition: all 0.15s ease;
+        font-weight: 600;
+    }
+
+        .icon-btn.edit:hover {
+            background: #0d6efd;
+            border-color: #0d6efd;
+            color: #fff;
+        }
+
+    .page-title {
+        font-weight: 700;
+        color: #1f1f1f;
+        margin-bottom: 1.5rem;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 1rem;
+        color: #999;
+    }
+
+    .btn-new {
+        background: #1f1f1f;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 0.6rem 1.2rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+    }
+
+        .btn-new:hover {
+            background: #000;
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+</style>
+
+<h3 class="page-title">Banner</h3>
+
+@if (Model != null)
+{
+    <div class="card about-card">
+        <div class="card-header d-flex align-items-center gap-2">
+            <i class="bi bi-image-fill text-white"></i>
+            <h5>Banner Bilgisi</h5>
+        </div>
+
+        <div class="card-body">
+            <img class="about-image" src="@Model.ImageUrl" alt="@Model.Title" />
+
+            <div class="about-title">@Model.Title</div>
+            <div class="about-desc">@Model.Comment</div>
+
+            <div class="about-actions">
+                <a href="/Banner/UpdateBanner/@Model.Id" class="icon-btn edit">
+                    <i class="bi bi-pencil-square"></i> Güncelle
+                </a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="empty-state">
+        <i class="bi bi-image" style="font-size: 2.5rem;"></i>
+        <p class="mt-2">Henüz banner bilgisi bulunmamaktadır.</p>
+        <a class="btn-new mt-2" href="/Banner/CreateBanner">
+            <i class="bi bi-plus-lg"></i> Yeni Banner Ekle
+        </a>
+    </div>
+}

@@ -1,0 +1,124 @@
+﻿@*
+    Message Show Screen
+*@
+@{
+}
+@model UserMessage
+@{
+    ViewData["Title"] = "Mesaj Detayı";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+}
+
+<style>
+    .detail-card {
+        max-width: 700px;
+        margin: 0 auto;
+        border: none;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+
+        .detail-card .card-header {
+            background: linear-gradient(135deg, #1f1f1f 0%, #3a3a3a 100%);
+            border: none;
+            padding: 1.1rem 1.5rem;
+        }
+
+            .detail-card .card-header h5 {
+                color: #fff;
+                margin: 0;
+                font-weight: 600;
+                letter-spacing: 0.3px;
+            }
+
+        .detail-card .card-body {
+            padding: 2rem;
+            background: #fff;
+        }
+
+    .sender-row {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .sender-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #1f1f1f;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .sender-name {
+        font-weight: 700;
+        color: #1f1f1f;
+        font-size: 1.05rem;
+    }
+
+    .sender-email {
+        font-size: 0.85rem;
+        color: #888;
+    }
+
+    .message-body {
+        font-size: 0.95rem;
+        color: #333;
+        line-height: 1.6;
+        white-space: pre-wrap;
+    }
+
+    .btn-back {
+        border-radius: 10px;
+        border: 1.5px solid #e4e4e4;
+        background: #fff;
+        color: #444;
+        padding: 0.55rem 1.1rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.15s ease;
+    }
+
+        .btn-back:hover {
+            background: #1f1f1f;
+            border-color: #1f1f1f;
+            color: #fff;
+        }
+</style>
+
+<a href="/Inbox/Index" class="btn-back mb-4">
+    <i class="bi bi-arrow-left"></i> Mesajlara dön
+</a>
+
+<div class="detail-card">
+    <div class="card-header d-flex align-items-center gap-2">
+        <i class="bi bi-envelope-open text-white"></i>
+        <h5>Mesaj Detayı</h5>
+    </div>
+
+    <div class="card-body">
+        <div class="sender-row">
+            <div class="sender-avatar">@Model.Name.Substring(0, 1).ToUpper()</div>
+            <div>
+                <div class="sender-name">@Model.Name</div>
+                <div class="sender-email">@Model.Email</div>
+            </div>
+        </div>
+
+        <div class="message-body">@Model.MessageBody</div>
+    </div>
+</div>

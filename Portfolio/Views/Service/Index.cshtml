@@ -1,0 +1,194 @@
+﻿@model List<Service>
+@{
+    ViewData["Title"] = "Hizmetlerim";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+}
+
+<style>
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.8rem;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .page-title {
+        font-weight: 700;
+        color: #1f1f1f;
+        margin: 0;
+    }
+
+    .btn-new {
+        background: #1f1f1f;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 0.6rem 1.2rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+    }
+
+        .btn-new:hover {
+            background: #000;
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+    .service-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.2rem;
+    }
+
+    .service-card {
+        background: #fff;
+        border: 1.5px solid #eee;
+        border-radius: 16px;
+        padding: 1.4rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+        transition: all 0.15s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .service-card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+    .service-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: #1f1f1f;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .service-title {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #1f1f1f;
+        margin-bottom: 0.5rem;
+    }
+
+    .service-desc {
+        font-size: 0.85rem;
+        color: #888;
+        line-height: 1.5;
+        flex-grow: 1;
+        margin-bottom: 1rem;
+    }
+
+    .service-actions {
+        display: flex;
+        gap: 8px;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 1rem;
+    }
+
+    .icon-btn {
+        flex: 1;
+        border-radius: 8px;
+        border: 1.5px solid #e4e4e4;
+        background: #fff;
+        color: #444;
+        font-size: 0.82rem;
+        padding: 0.45rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        text-decoration: none;
+        transition: all 0.15s ease;
+        cursor: pointer;
+    }
+
+        .icon-btn.edit:hover {
+            background: #0d6efd;
+            border-color: #0d6efd;
+            color: #fff;
+        }
+
+        .icon-btn.del:hover {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+        }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 1rem;
+        color: #999;
+    }
+</style>
+
+<div class="page-header">
+    <h3 class="page-title">Hizmetlerim</h3>
+    <a class="btn-new" href="/Service/CreateService">
+        <i class="bi bi-plus-lg"></i> Yeni Hizmet Ekle
+    </a>
+</div>
+
+@if (Model != null && Model.Count > 0)
+{
+    <div class="service-grid">
+        @foreach (var item in Model)
+        {
+            <div class="service-card">
+                <div class="service-icon"><i class="@item.Icon"></i></div>
+                <div class="service-title">@item.Title</div>
+                <div class="service-desc">@item.Description</div>
+
+                <div class="service-actions">
+                    <a href="/Service/UpdateService/@item.Id" class="icon-btn edit">
+                        <i class="bi bi-pencil-square"></i> Güncelle
+                    </a>
+                    <button onclick="deleteService(@item.Id)" class="icon-btn del">
+                        <i class="bi bi-trash"></i> Sil
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="empty-state">
+        <i class="bi bi-tools" style="font-size: 2.5rem;"></i>
+        <p class="mt-2">Henüz hizmet eklenmemiş.</p>
+    </div>
+}
+
+<script>
+
+    function deleteService(id){
+
+        Swal.fire({
+            title: "Silmek istediğinize emin misiniz?",
+            text: "Bu işlem geri çevirilemez!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Evet, sil",
+            cancelButtonText: "İptal"
+        }).then((result) => {
+            if (result.isConfirmed)
+                window.location.href = "/Service/DeleteService/" + id;
+        });
+    }
+
+</script>

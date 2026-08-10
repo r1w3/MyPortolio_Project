@@ -1,0 +1,211 @@
+﻿@model int
+@*
+    Dashboard
+*@
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+    var recentMessages = ViewBag.RecentMessages as List<UserMessage>;
+    var recentProjects = ViewBag.RecentProjects as List<Project>;
+}
+
+<style>
+    .welcome-title {
+        font-weight: 700;
+        font-size: 1.6rem;
+        color: #1f1f1f;
+        margin-bottom: 0.3rem;
+    }
+
+    .welcome-sub {
+        font-size: 0.9rem;
+        color: #888;
+        margin-bottom: 2rem;
+    }
+
+    .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.2rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: #fff;
+        border: 1.5px solid #eee;
+        border-radius: 16px;
+        padding: 1.4rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+        transition: all 0.15s ease;
+    }
+
+        .stat-card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+    .stat-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: #1f1f1f;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .stat-label {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        margin-bottom: 0.3rem;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1f1f1f;
+    }
+
+    .section-card {
+        background: #fff;
+        border: 1.5px solid #eee;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .section-header {
+        background: linear-gradient(135deg, #1f1f1f 0%, #3a3a3a 100%);
+        padding: 1rem 1.4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .section-header h5 {
+            color: #fff;
+            margin: 0;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .section-header a {
+            color: #ccc;
+            font-size: 0.82rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+            .section-header a:hover {
+                color: #fff;
+            }
+
+    .section-body {
+        padding: 1.2rem 1.4rem;
+    }
+
+    .empty-mini {
+        text-align: center;
+        padding: 2.5rem 1rem;
+        color: #aaa;
+        font-size: 0.9rem;
+    }
+</style>
+
+<div class="welcome-title">Hoş Geldiniz</div>
+<div class="welcome-sub">Sistem genelinde performans verileri ve bekleyen aksiyonlar için günlük özetiniz.</div>
+
+<div class="stat-grid">
+    <div class="stat-card">
+        <div class="stat-icon"><i class="bi bi-envelope"></i></div>
+        <div class="stat-label">Gelen Mesajlar</div>
+        <div class="stat-value">@Model</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon"><i class="bi bi-award"></i></div>
+        <div class="stat-label">Toplam Deneyim</div>
+        <div class="stat-value">@ViewBag.ExperienceCount</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon"><i class="bi bi-folder2-open"></i></div>
+        <div class="stat-label">Geliştirilen Projeler</div>
+        <div class="stat-value">@ViewBag.ProjectCount</div>
+    </div>
+</div>
+
+<div class="section-card">
+    <div class="section-header">
+        <h5><i class="bi bi-envelope-open me-2"></i>Son Mesajlar</h5>
+        <a href="/Inbox/Index">Hepsini gör <i class="bi bi-arrow-right"></i></a>
+    </div>
+    <div class="section-body">
+        
+
+        @if (recentMessages != null && recentMessages.Count > 0)
+        {
+            <div class="d-flex flex-column gap-2">
+                @foreach (var msg in recentMessages)
+                {
+                    <div class="d-flex justify-content-between align-items-center py-2" style="border-bottom: 1px solid #f0f0f0;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 0.9rem; color: #1f1f1f;">@msg.Name</div>
+                            <div style="font-size: 0.8rem; color: #999; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 400px;">@msg.MessageBody</div>
+                        </div>
+                        @if (msg.IsRead)
+                        {
+                            <span style="font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 999px; background: #eef7ee; color: #2e7d32;">Okundu</span>
+                        }
+                        else
+                        {
+                            <span style="font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 999px; background: #1f1f1f; color: #fff;">Okunmadı</span>
+                        }
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="empty-mini">Henüz mesaj yok.</div>
+        }
+    </div>
+   
+    <div class="section-card">
+        <div class="section-header">
+            <h5><i class="bi bi-envelope-open me-2"></i>Son Projeler</h5>
+            <a href="/Inbox/Index">Hepsini gör <i class="bi bi-arrow-right"></i></a>
+        </div>
+        <div class="section-body">
+
+        
+            @if (recentProjects != null && recentProjects.Count > 0)
+            {
+                <div class="d-flex flex-column gap-2">
+                    @foreach (var prj in recentProjects)
+                    {
+                        <div class="d-flex justify-content-between align-items-center py-2" style="border-bottom: 1px solid #f0f0f0;">
+                            <div>
+                                <div style="font-weight: 600; font-size: 0.9rem; color: #1f1f1f;">@prj.Name</div>
+                                <div style="font-size: 0.8rem; color: #999; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 400px;">@prj.Comment</div>
+                            </div>
+                           
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="empty-mini">Henüz proje yok.</div>
+            }
+        </div>
+
+</div>

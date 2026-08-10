@@ -1,0 +1,214 @@
+﻿@model List<Project>
+@{
+    ViewData["Title"] = "Projeler";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+}
+
+<style>
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.8rem;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .page-title {
+        font-weight: 700;
+        color: #1f1f1f;
+        margin: 0;
+    }
+
+    .btn-new {
+        background: #1f1f1f;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 0.6rem 1.2rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 0.3px;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+        .btn-new:hover {
+            background: #000;
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+    .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .project-card {
+        border: none;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        background: #fff;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+        }
+
+    .project-card-img {
+        width: 100%;
+        height: 170px;
+        object-fit: cover;
+        background: #f2f2f2;
+    }
+
+    .project-card-body {
+        padding: 1.2rem 1.3rem 1rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .project-card-title {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #1f1f1f;
+        margin-bottom: 0.4rem;
+    }
+
+    .project-card-desc {
+        font-size: 0.85rem;
+        color: #777;
+        margin-bottom: 1rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        flex-grow: 1;
+    }
+
+    .project-card-actions {
+        display: flex;
+        gap: 8px;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 0.9rem;
+    }
+
+    .icon-btn {
+        flex: 1;
+        border-radius: 8px;
+        border: 1.5px solid #e4e4e4;
+        background: #fff;
+        color: #444;
+        font-size: 0.85rem;
+        padding: 0.45rem 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        text-decoration: none;
+        transition: all 0.15s ease;
+        cursor: pointer;
+    }
+
+        .icon-btn.gh:hover {
+            background: #1f1f1f;
+            border-color: #1f1f1f;
+            color: #fff;
+        }
+
+        .icon-btn.edit:hover {
+            background: #0d6efd;
+            border-color: #0d6efd;
+            color: #fff;
+        }
+
+        .icon-btn.del:hover {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+        }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 1rem;
+        color: #999;
+    }
+</style>
+
+<div class="page-header">
+    <h3 class="page-title">Projeler</h3>
+    <a class="btn-new" href="/Project/CreateProject">
+        <i class="bi bi-plus-lg"></i> Yeni Proje Oluştur
+    </a>
+</div>
+
+@if (Model != null && Model.Count > 0)
+{
+    <div class="project-grid">
+        @foreach (var item in Model)
+        {
+            <div class="project-card">
+                <img src="@item.ImageUrl" class="project-card-img" alt="@item.Name" />
+
+                <div class="project-card-body">
+                    <div class="project-card-title">@item.Name</div>
+                    <div class="project-card-desc">@item.Comment</div>
+
+                    <div class="project-card-actions">
+                        <a href="@item.GithubUrl" target="_blank" class="icon-btn gh">
+                            <i class="bi bi-github"></i> Github
+                        </a>
+                        <a href="/Project/UpdateProject/@item.Id" class="icon-btn edit">
+                            <i class="bi bi-pencil-square"></i> Güncelle
+                        </a>
+                        <button onclick="deleteProject(@item.Id)" class="icon-btn del">
+                            <i class="bi bi-trash"></i> Sil
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="empty-state">
+        <i class="bi bi-folder-x" style="font-size: 2.5rem;"></i>
+        <p class="mt-2">Henüz proje eklenmemiş.</p>
+    </div>
+}
+
+<script>
+
+    function deleteProject(id){
+
+            Swal.fire({
+      title: "Silmek istediğinize emin misiniz?",
+      text: "Bu işlem geri çevirilemez!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Evet, sil",
+      cancelButtonText: "İptal"
+    }).then((result) => {
+      if (result.isConfirmed)
+
+      window.location.href="/Project/DeleteProject/"+id;
+
+    });
+    }
+
+
+</script>

@@ -1,0 +1,157 @@
+﻿@model Project
+@{
+    ViewData["Title"] = "Yeni Proje Oluştur";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+}
+
+<style>
+    .project-card {
+        max-width: 700px;
+        margin: 0 auto;
+        border: none;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+
+        .project-card .card-header {
+            background: linear-gradient(135deg, #1f1f1f 0%, #3a3a3a 100%);
+            border: none;
+            padding: 1.1rem 1.5rem;
+        }
+
+            .project-card .card-header h5 {
+                color: #fff;
+                margin: 0;
+                font-weight: 600;
+                letter-spacing: 0.3px;
+            }
+
+        .project-card .card-body {
+            padding: 2rem;
+            background: #fff;
+        }
+
+    .field-group {
+        margin-bottom: 1.4rem;
+    }
+
+        .field-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 0.4rem;
+            display: block;
+        }
+
+    .input-group-text {
+        background: #f8f8f8;
+        border: 1.5px solid #e4e4e4;
+        border-right: none;
+        color: #888;
+        border-radius: 10px 0 0 10px;
+    }
+
+    .project-card .form-control {
+        border: 1.5px solid #e4e4e4;
+        border-left: none;
+        border-radius: 0 10px 10px 0;
+        padding: 0.65rem 0.9rem;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+    }
+
+    /* Textarea'nın border-left'i olmalı çünkü input-group ile hizalanmıyor, üstte ayrı duruyor */
+    .project-card textarea.form-control {
+        border-left: 1.5px solid #e4e4e4;
+        border-radius: 10px;
+        resize: none;
+    }
+
+    .project-card .form-control:focus {
+        border-color: #1f1f1f;
+        box-shadow: 0 0 0 3px rgba(31, 31, 31, 0.08);
+        z-index: 0;
+    }
+
+    .input-group:focus-within .input-group-text {
+        border-color: #1f1f1f;
+    }
+
+    .btn-save {
+        background: #1f1f1f;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 0.75rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: 0.3px;
+        transition: all 0.2s ease;
+    }
+
+        .btn-save:hover {
+            background: #000;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            color: #fff;
+        }
+
+    .page-title {
+        font-weight: 700;
+        color: #1f1f1f;
+        margin-bottom: 1.5rem;
+    }
+</style>
+
+<h3 class="page-title">Yeni Proje Oluştur</h3>
+
+<div class="card project-card">
+    <div class="card-header d-flex align-items-center gap-2">
+        <i class="bi bi-folder-plus text-white"></i>
+        <h5>Yeni Proje Oluştur</h5>
+    </div>
+
+    <div class="card-body">
+        <form method="post">
+
+            <div class="field-group">
+                <label>Proje Adı</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-card-heading"></i></span>
+                    <input type="text" asp-for="Name" class="form-control" placeholder="Örn: Portfolyo Web Sitesi" />
+                </div>
+                <span class="text-danger small" asp-validation-for="Name"></span>
+            </div>
+
+            <div class="field-group">
+                <label>Görsel Url</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-image"></i></span>
+                    <input type="text" asp-for="ImageUrl" class="form-control" placeholder="https://..." />
+                </div>
+                <span class="text-danger small" asp-validation-for="ImageUrl"></span>
+            </div>
+
+            <div class="field-group">
+                <label>Proje Açıklaması</label>
+                <textarea asp-for="Comment" class="form-control" rows="4" placeholder="Proje hakkında kısa bir açıklama yazın..."></textarea>
+                <span class="text-danger small" asp-validation-for="Comment"></span>
+            </div>
+
+            <div class="field-group">
+                <label>Github Url</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-github"></i></span>
+                    <input type="url" asp-for="GithubUrl" class="form-control" placeholder="https://github.com/..." />
+                </div>
+                <span class="text-danger small" asp-validation-for="GithubUrl"></span>
+            </div>
+
+            <button type="submit" class="btn btn-save w-100 mt-2">
+                <i class="bi bi-check2-circle me-1"></i> Kaydet
+            </button>
+
+        </form>
+    </div>
+</div>

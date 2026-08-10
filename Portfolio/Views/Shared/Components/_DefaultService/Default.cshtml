@@ -1,0 +1,21 @@
+﻿@model List<Service>
+
+    <div class="max-w-container-max mx-auto">
+    
+    <h2 class="font-headline-md text-headline-md text-on-background mb-stack-lg">Gerçekleştirdiğim Hizmetler</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-stack-lg">
+    @foreach (var item in Model)
+    {
+       
+        <!-- Service 1 -->
+       
+            <div class="glass-card p-stack-lg rounded-xl flex flex-col gap-stack-sm hover:-translate-y-2 transition-transform duration-300">
+                <span class="@item.Icon text-primary text-4xl mb-stack-sm" style="font-variation-settings: 'FILL' 0;"></span>
+                <h3 class="font-body-lg text-body-lg font-semibold text-on-background">@item.Title</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant">@item.Description</p>
+            </div>
+        
+    
+    }
+    </div>
+</div>

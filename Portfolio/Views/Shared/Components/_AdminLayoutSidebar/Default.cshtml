@@ -1,0 +1,79 @@
+﻿@*
+   --Admin Layout Sidebar--
+*@
+
+<aside class="w-sidebar-width h-screen fixed left-0 top-0 bg-surfac e-lowest border-r border-outline-variant flex flex-col py-lg z-50">
+    <div class="px-md mb-xl">
+        <h2 class="font-h2 text-h2 font-bold text-primary">Admin Paneli</h2>
+        <p class="text-on-surface-variant font-label-sm mt-xs">Yönetim Sayfası</p>
+    </div>
+    <nav class="flex-1 space-y-1">
+        <!-- Dashboard (Inactive) -->
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:opacity-80" href="/Dashboard/Index">
+            <span class="material-symbols-outlined">window</span>
+            <span class="font-label-md text-label-md">Dashboard</span>
+        </a>
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:opacity-80" href="/Education/Index">
+            <span class="material-symbols-outlined">school</span>
+            <span class="font-label-md text-label-md">Eğitimlerim</span>
+        </a>
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:opacity-80" href="/Experience/Index">
+            <span class="material-symbols-outlined">Work</span>
+            <span class="font-label-md text-label-md">Deneyimlerim</span>
+        </a>
+        <!-- Projects (Active) -->
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-  highest transition-colors duration-200 cursor-pointer active:opacity-80" href="/Project/Index">
+            <span class="material-symbols-outlined">Task</span>
+            <span class="font-label-md text-label-md">Projelerim</span>
+        </a>
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-  highest transition-colors duration-200 cursor-pointer active:opacity-80" href="/ProjectTechStacks/Index">
+            <span class="material-symbols-outlined">Task</span>
+            <span class="font-label-md text-label-md">Proje Teknolojileri</span>
+        </a>
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:opacity-80" href="/Service/Index">
+            <span class="material-symbols-outlined">Api</span>
+            <span class="font-label-md text-label-md">Hizmetler</span>
+        </a>
+        <!-- Categories -->
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:opacity-80" href="/About/Index">
+            <span class="material-symbols-outlined">assignment</span>
+            <span class="font-label-md text-label-md">Hakkımızda</span>
+        </a>
+        <!-- Messages -->
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:opacity-80" href="/Inbox/Index">
+            <span class="material-symbols-outlined">Chat</span>
+            <span class="font-label-md text-label-md">Gelen Mesajlar</span>
+        </a>
+        <!-- Settings -->
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:opacity-80" href="/Skills/Index">
+            <span class="material-symbols-outlined">extension</span>
+            <span class="font-label-md text-label-md">Yeteneklerim</span>
+        </a>
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:opacity-80" href="/Banner/Index">
+            <span class="material-symbols-outlined">ad</span>
+            <span class="font-label-md text-label-md">Banner Düzenle</span>
+        </a>
+        <!-- Profile Settings -->
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:opacity-80" href="/ProfileSettings/Update">
+            <span class="material-symbols-outlined">edit</span>
+            <span class="font-label-md text-label-md">Profili Düzenle</span>
+            <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:opacity-80" href="https://localhost:7242/">
+                <span class="material-symbols-outlined">Home</span>
+                <span class="font-label-md text-label-md">Siteye geç</span>
+            <!-- Logout -->
+            <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-200 cursor-pointer active:opacity-80" href="/Auth/Logout">
+                <i class="material-symbols-outlined">Logout</i>
+                <span class="font-label-md text-label-md">Çıkış yap</span>
+            </a>
+        </nav>
+        <div class="mt-auto px-md flex items-center gap-md pt-lg border-t border-outline-variant">
+            <img class="w-10 h-10 rounded-full object-cover" data-alt="A professional headshot of a senior project manager with a friendly expression, wearing a navy blue blazer against a neutral office background. The lighting is soft and professional, emphasizing a modern corporate aesthetic with high-quality, high-key values." src="@ViewBag.ImageUrl" />
+            <div>
+                <p class="font-label-md text-label-md font-bold text-on-surface">@ViewBag.Fullname</p>
+                <p class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">Super Admin</p>
+            </div>
+            <div>
+            </div>
+        </div>
+
+    </aside>
