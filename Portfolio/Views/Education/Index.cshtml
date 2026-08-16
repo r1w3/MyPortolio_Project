@@ -217,9 +217,9 @@
                     <a href="/Education/Update/@item.Id" class="icon-btn edit">
                         <i class="bi bi-pencil-square"></i>
                     </a>
-                    <button onclick="deleteEducation(@item.Id)" class="icon-btn del">
+                    <a href="/Education/Delete/@item.Id" onclick="deleteEducation(@item.Id)" class="icon-btn del">
                         <i class="bi bi-trash"></i>
-                    </button>
+                    </a>
                 </div>
             </div>
         }
@@ -248,7 +248,7 @@ else
             cancelButtonText: "İptal"
         }).then((result) => {
             if (result.isConfirmed)
-                window.location.href = "/Education/DeleteEducation/" + id;
+                window.location.href = "/Education/Delete   /" + id;
         });
     }
 

@@ -1,10 +1,6 @@
-﻿@*
-    Experience
-*@
-
-@model List<Experience>
+﻿@model List<TechStack>
 @{
-    ViewData["Title"] = "Deneyimlerim";
+    ViewData["Title"] = "Teknolojiler";
     Layout = "~/Views/AdminLayout/Layout.cshtml";
 }
 
@@ -32,12 +28,11 @@
         padding: 0.6rem 1.2rem;
         font-weight: 600;
         font-size: 0.9rem;
-        letter-spacing: 0.3px;
-        transition: all 0.2s ease;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         gap: 6px;
+        transition: all 0.2s ease;
     }
 
         .btn-new:hover {
@@ -47,116 +42,87 @@
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
 
-    .edu-list {
-        display: flex;
-        flex-direction: column;
+    .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 1rem;
     }
 
-    .edu-item {
+    .tech-card {
         display: flex;
         align-items: center;
-        gap: 1.2rem;
+        justify-content: space-between;
+        gap: 10px;
         background: #fff;
         border: 1.5px solid #eee;
         border-radius: 14px;
-        padding: 1.3rem 1.5rem;
+        padding: 1rem 1.2rem;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
         transition: all 0.15s ease;
     }
 
-        .edu-item:hover {
+        .tech-card:hover {
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             transform: translateY(-1px);
         }
 
-    .edu-icon {
-        flex-shrink: 0;
-        width: 52px;
-        height: 52px;
-        border-radius: 12px;
-        background: #1f1f1f;
-        color: #fff;
-        font-size: 1.4rem;
+    .tech-left {
         display: flex;
         align-items: center;
-        justify-content: center;
-    }
-
-    .edu-info {
-        flex-grow: 1;
+        gap: 10px;
         min-width: 0;
     }
 
-    .edu-school {
-        font-weight: 700;
-        font-size: 1.05rem;
+    .tech-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        background: #1f1f1f;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
+
+    .tech-name {
+        font-weight: 600;
+        font-size: 0.95rem;
         color: #1f1f1f;
-    }
-
-    .edu-dept {
-        font-size: 0.88rem;
-        color: #777;
-        margin-bottom: 4px;
-    }
-
-    .edu-desc {
-        font-size: 0.82rem;
-        color: #999;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 500px;
     }
 
-    .edu-meta {
+    .tech-actions {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
         gap: 6px;
         flex-shrink: 0;
     }
 
-    .year-badge {
-        background: #f4f4f4;
-        color: #444;
-        font-size: 0.78rem;
-        font-weight: 600;
-        padding: 0.3rem 0.7rem;
-        border-radius: 999px;
-        white-space: nowrap;
-    }
-
-    .edu-actions {
-        display: flex;
-        gap: 8px;
-        flex-shrink: 0;
-    }
-
-    .icon-btn {
+    .icon-btn-sm {
         border-radius: 8px;
         border: 1.5px solid #e4e4e4;
         background: #fff;
         color: #444;
-        font-size: 0.85rem;
-        padding: 0.45rem 0.8rem;
+        font-size: 0.8rem;
+        padding: 0.35rem 0.55rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 5px;
         text-decoration: none;
         transition: all 0.15s ease;
         cursor: pointer;
-        white-space: nowrap;
     }
 
-        .icon-btn.edit:hover {
+        .icon-btn-sm.edit:hover {
             background: #0d6efd;
             border-color: #0d6efd;
             color: #fff;
         }
 
-        .icon-btn.del:hover {
+        .icon-btn-sm.del:hover {
             background: #dc3545;
             border-color: #dc3545;
             color: #fff;
@@ -167,48 +133,31 @@
         padding: 4rem 1rem;
         color: #999;
     }
-
-    @@media (max-width: 768px) {
-        .edu-item {
-            flex-wrap: wrap;
-        }
-
-        .edu-meta {
-            align-items: flex-start;
-        }
-    }
 </style>
 
 <div class="page-header">
-    <h3 class="page-title">Deneyimlerim</h3>
-    <a class="btn-new" href="/Experience/CreateExperience">
-        <i class="bi bi-plus-lg"></i> Yeni Deneyim Ekle
+    <h3 class="page-title">Teknolojiler</h3>
+    <a class="btn-new" href="/TechStack/Create">
+        <i class="bi bi-plus-lg"></i> Yeni Teknoloji Ekle
     </a>
 </div>
 
-@if (Model != null)
+@if (Model != null && Model.Count > 0)
 {
-    <div class="edu-list">
+    <div class="tech-grid">
         @foreach (var item in Model)
         {
-            <div class="edu-item">
-                <div class="edu-icon"><i class="bi bi-briefcase-fill"></i></div>
-
-                <div class="edu-info">
-                    <div class="edu-school">@item.Name</div>
-                    <div class="edu-dept">@item.Company</div>
-                    <div class="edu-desc">@item.Comment</div>
+            <div class="tech-card">
+                <div class="tech-left">
+                    <div class="tech-icon"><i class="bi bi-cpu"></i></div>
+                    <span class="tech-name">@item.Name</span>
                 </div>
 
-                <div class="edu-meta">
-                    <span class="year-badge">@item.StartYear - @item.FinishedYear</span>
-                </div>
-
-                <div class="edu-actions">
-                    <a href="/Experience/UpdateExperience/@item.Id" class="icon-btn edit">
+                <div class="tech-actions">
+                    <a href="/TechStack/Update/@item.Id" class="icon-btn-sm edit">
                         <i class="bi bi-pencil-square"></i>
                     </a>
-                    <button onclick="deleteExperience(@item.Id)" class="icon-btn del">
+                    <button onclick="deleteTechStack(@item.Id)" class="icon-btn-sm del">
                         <i class="bi bi-trash"></i>
                     </button>
                 </div>
@@ -219,14 +168,14 @@
 else
 {
     <div class="empty-state">
-        <i class="bi bi-briefcase" style="font-size: 2.5rem;"></i>
-        <p class="mt-2">Henüz deneyim eklenmemiş.</p>
+        <i class="bi bi-cpu" style="font-size: 2.5rem;"></i>
+        <p class="mt-2">Henüz teknoloji eklenmemiş.</p>
     </div>
 }
 
 <script>
 
-    function deleteExperience(id){
+    function deleteTechStack(id){
 
         Swal.fire({
             title: "Silmek istediğinize emin misiniz?",
@@ -239,7 +188,7 @@ else
             cancelButtonText: "İptal"
         }).then((result) => {
             if (result.isConfirmed)
-                window.location.href = "/Experience/Delete/" + id;
+                window.location.href = "/TechStack/DeleteTechStack/" + id;
         });
     }
 

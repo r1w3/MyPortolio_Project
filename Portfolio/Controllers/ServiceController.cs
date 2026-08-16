@@ -48,5 +48,15 @@ namespace Portfolio.Controllers
             return RedirectToAction("Index");
 
         }
+
+        public IActionResult Delete(int id)
+        {
+
+            var deleteServices = _context.Services.Find(id);
+            _context.Services.Remove(deleteServices);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
     }
 }

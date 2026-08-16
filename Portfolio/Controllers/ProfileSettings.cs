@@ -42,7 +42,7 @@ namespace Portfolio.Controllers
             }
 
             _context.SaveChanges();
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("Update");
 
         }
 

@@ -25,6 +25,8 @@ namespace Portfolio.Controllers
         {
             return View();
         }
+
+        [HttpPost]
         public IActionResult CreateBanner(Banner banner)
         {
             _context.Banners.Add(banner);
@@ -53,6 +55,8 @@ namespace Portfolio.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        
 
     }
 }

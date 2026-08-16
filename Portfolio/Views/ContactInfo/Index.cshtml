@@ -1,0 +1,205 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Contactinfo
+@{
+    ViewData["Title"] = "Eğitimlerim";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+}
+
+<style>
+    .about-card {
+        max-width: 700px;
+        margin: 0 auto;
+        border: none;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+
+        .about-card .card-header {
+            background: linear-gradient(135deg, #1f1f1f 0%, #3a3a3a 100%);
+            border: none;
+            padding: 1.1rem 1.5rem;
+        }
+
+            .about-card .card-header h5 {
+                color: #fff;
+                margin: 0;
+                font-weight: 600;
+                letter-spacing: 0.3px;
+            }
+
+        .about-card .card-body {
+            padding: 2rem;
+            background: #fff;
+        }
+
+    .contact-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 1rem 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+        .contact-row:last-of-type {
+            border-bottom: none;
+        }
+
+    .contact-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        background: #1f1f1f;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+
+    .contact-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+    }
+
+    .contact-value {
+        font-size: 0.95rem;
+        color: #1f1f1f;
+        font-weight: 500;
+        word-break: break-all;
+    }
+
+    .about-actions {
+        display: flex;
+        gap: 10px;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 1.2rem;
+        margin-top: 1.5rem;
+    }
+
+    .icon-btn {
+        flex: 1;
+        border-radius: 10px;
+        border: 1.5px solid #e4e4e4;
+        background: #fff;
+        color: #444;
+        font-size: 0.9rem;
+        padding: 0.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        text-decoration: none;
+        transition: all 0.15s ease;
+        font-weight: 600;
+    }
+
+        .icon-btn.edit:hover {
+            background: #0d6efd;
+            border-color: #0d6efd;
+            color: #fff;
+        }
+
+    .page-title {
+        font-weight: 700;
+        color: #1f1f1f;
+        margin-bottom: 1.5rem;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 1rem;
+        color: #999;
+    }
+
+    .btn-new {
+        background: #1f1f1f;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 0.6rem 1.2rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+    }
+
+        .btn-new:hover {
+            background: #000;
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+</style>
+
+<h3 class="page-title">İletişim Bilgileri</h3>
+
+@if (Model != null)
+{
+    <div class="card about-card">
+        <div class="card-header d-flex align-items-center gap-2">
+            <i class="bi bi-person-lines-fill text-white"></i>
+            <h5>İletişim Bilgilerim</h5>
+        </div>
+
+        <div class="card-body">
+
+            <div class="contact-row">
+                <div class="contact-icon"><i class="bi bi-envelope"></i></div>
+                <div>
+                    <div class="contact-label">E-posta</div>
+                    <div class="contact-value">@Model.Email</div>
+                </div>
+            </div>
+
+            <div class="contact-row">
+                <div class="contact-icon"><i class="bi bi-geo-alt"></i></div>
+                <div>
+                    <div class="contact-label">Adres</div>
+                    <div class="contact-value">@Model.Address</div>
+                </div>
+            </div>
+
+            <div class="contact-row">
+                <div class="contact-icon"><i class="bi bi-linkedin"></i></div>
+                <div>
+                    <div class="contact-label">LinkedIn</div>
+                    <div class="contact-value">@Model.LinkedinUrl</div>
+                </div>
+            </div>
+
+            <div class="contact-row">
+                <div class="contact-icon"><i class="bi bi-github"></i></div>
+                <div>
+                    <div class="contact-label">GitHub</div>
+                    <div class="contact-value">@Model.GithubUrl</div>
+                </div>
+            </div>
+
+            <div class="about-actions">
+                <a href="/Contactinfo/Update/@Model.Id" class="icon-btn edit">
+                    <i class="bi bi-pencil-square"></i> Güncelle
+                </a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="empty-state">
+        <i class="bi bi-person-lines-fill" style="font-size: 2.5rem;"></i>
+        <p class="mt-2">Henüz iletişim bilgisi bulunmamaktadır.</p>
+        <a class="btn-new mt-2" href="/Contactinfo/Create">
+            <i class="bi bi-plus-lg"></i> İletişim Bilgisi Ekle
+        </a>
+    </div>
+}
